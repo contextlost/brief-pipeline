@@ -1,0 +1,8 @@
+# Secrets and personal config -- never commit these.
+.env
+feeds.yaml
+
+# Python
+__pycache__/
+*.pyc
+.venv/

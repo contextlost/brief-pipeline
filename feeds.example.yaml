@@ -1,0 +1,10 @@
+# Copy to feeds.yaml and add your own feeds. feeds.yaml is gitignored.
+feeds:
+  - name: "BBC World"
+    url: "https://feeds.bbci.co.uk/news/world/rss.xml"
+  - name: "Reuters World"
+    url: "https://www.reutersagency.com/feed/?taxonomy=best-topics&post_type=best"
+
+settings:
+  max_items_per_feed: 20
+  similarity_threshold: 0.35
