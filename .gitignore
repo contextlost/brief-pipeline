@@ -1,6 +1,7 @@
-# Secrets and personal config -- never commit these.
+# Secrets, personal config, and generated output -- never commit these.
 .env
 feeds.yaml
+editions/
 
 # Python
 __pycache__/

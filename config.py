@@ -12,7 +12,21 @@ DEFAULTS = {
 }
 
 
+def _load_dotenv(root):
+    """Minimal .env loader (no dependency): KEY=VALUE lines into os.environ."""
+    path = root / ".env"
+    if not path.exists():
+        return
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        os.environ.setdefault(key.strip(), value.strip().strip("'\""))
+
+
 def load_config():
+    _load_dotenv(ROOT)
     path = ROOT / "feeds.yaml"
     if not path.exists():
         raise FileNotFoundError(
@@ -27,6 +41,11 @@ def load_config():
     return {
         "feeds": data.get("feeds", []),
         "settings": settings,
+        "llm": {
+            "api_key": os.getenv("LLM_API_KEY"),
+            "base_url": os.getenv("LLM_BASE_URL") or "https://api.openai.com/v1",
+            "model": os.getenv("LLM_MODEL") or "gpt-4o-mini",
+        },
         # Reserved for later steps (e.g. full-article research). Never in git.
         "secrets": {"news_api_key": os.getenv("NEWS_API_KEY")},
     }
